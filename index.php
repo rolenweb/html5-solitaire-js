@@ -55,15 +55,6 @@
 	<link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore&v1' rel='stylesheet' type='text/css'>
 </head>
 <body class="hd" touch-action="none">
-	<div class="github-fork-ribbon-wrapper left-bottom"><div class="github-fork-ribbon"><a href="https://github.com/warpdesign/solitaire-js">Fork me on GitHub</a></div></div>
-	<div class="description">
-	<h2>The HTML5/CSS3 card game</h2> 
-	<ul> 
-		<li>Optimized for sofa play on the iPad!</li> 
-		<li>CSS3-enhanced (degrades nicely on other browsers)</li> 
-		<li>Nice graphics</li> 
-	</ul> 
-	</div>
 	<div id="pause">
 		<p>Pause</p>
 	</div>
@@ -125,18 +116,5 @@
 
 	<div id="shadow"></div>
 	<div id="splash"><div class="content"></div></div>
-	<script type="text/javascript"> 
-			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-		</script> 
-			
-		<script type="text/javascript"> 
-			try 
-			{
-				var pageTracker = _gat._getTracker("UA-7328965-1");
-				pageTracker._trackPageview();
-			} 
-			catch(err) {}
-		</script> 
 </body>
 </html>
