@@ -1,21 +1,110 @@
-﻿<!DOCTYPE html>
+﻿﻿<?php
+$language = isset($_REQUEST['l']) ? $_REQUEST['l'] : 'en';
+
+$message = [
+    'en' => [
+        'title' => 'Free Solitaire Klondike',
+        'options' => 'Options',
+        'sound' => 'Sound',
+        'restart' => 'Restart',
+        'undo' => 'Undo',
+        'redo' => 'Redo',
+        'game' => 'Game',
+        'score' => 'Score',
+        'enter_your_name' => 'Enter your name',
+        'points' => 'Points',
+        'skip_ads' => 'Skip Ads',
+        'sec' => 'sec',
+        'ad' => 'Ad',
+    ],
+    'ru' => [
+        'title' => 'Пасьянс косынка играть',
+        'options' => 'Настройки',
+        'sound' => 'Звук',
+        'restart' => 'Рестарт',
+        'undo' => 'Отменить',
+        'redo' => 'Вернуться',
+        'game' => 'Игра',
+        'score' => 'Счет',
+        'enter_your_name' => 'Ваше имя',
+        'points' => 'Очков',
+        'skip_ads' => 'Пропустить рекламу',
+        'sec' => 'сек',
+        'ad' => 'Реклама',
+    ]
+];
+if (!isset($message[$language])) {
+    $language = 'en';
+}
+
+$ads = [
+    'ru' => [
+        'video' => [
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_1.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_2.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://www.warframe.com/',
+                'src' => 'WF_Hildryn_EvergreenAd_1920x1080_60fps_h264_FNL.mp4',
+                'type' => 'video/mp4'
+            ],
+
+            [
+                'target' => 'https://plarium.com/landings/ru/desktop/raid/icegolem_f036_a_rdoapp',
+                'src' => 'RAD_Luda_Dragon_1920x1080_EN_v01_no-OS_20sec_3822_IMG=1KGB.mp4',
+                'type' => 'video/mp4'
+            ]
+
+
+        ]
+    ],
+    'en' => [
+        'video' => [
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_1.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_2.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://www.warframe.com/',
+                'src' => 'WF_Hildryn_EvergreenAd_1920x1080_60fps_h264_FNL.mp4',
+                'type' => 'video/mp4'
+            ],
+
+            [
+                'target' => 'https://plarium.com/landings/ru/desktop/raid/icegolem_f036_a_rdoapp',
+                'src' => 'RAD_Luda_Dragon_1920x1080_EN_v01_no-OS_20sec_3822_IMG=1KGB.mp4',
+                'type' => 'video/mp4'
+            ]
+        ]
+    ],
+];
+
+$messageLang = $message[$language];
+?>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset=utf-8 />
 	<!--<meta name="viewport" content="width=1024,height=768" />-->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-	<meta name="Keywords" lang="fr" content="solitaire,klondike,warpklondike,solitairehd,javascript,js,warpdesign,css3,transitions,html5,webkit,mozilla,iphone,ipad" />
-	<meta name="Author" lang="fr" content="Nicolas Ramz" />
- 
-	<meta name="Identifier-URL" content="http://www.warpdesign.fr/" /> 
-	<meta name="Publisher" content="WarpDesign" /> 
-	<meta name="Copyright" content="(c) 2008 Nicolas Ramz" />
-	<meta name="description" content="HTML5/CSS3 card game playable from iPad or your desktop browser" />
- 
+
 	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	
-	<title>Solitaire HD by Warpdesign</title>
+	<title><?php echo $messageLang['title'] ?></title>
 	
 	<link rel="stylesheet" href="css/main.css" type="text/css" />
 	<link rel="stylesheet" href="css/jquery.gritter.css" type="text/css" />
@@ -44,13 +133,14 @@
 	<script type="text/javascript" src="js/Particles.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/ads/ads.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			WarpKlondikeMain.init();
-			$('.github-fork-ribbon-wrapper').bind('touchstart', function() {
-				document.location.href = $(this).find('a').attr('href');
-			});	
+            new Ads(true, document.getElementById('ads'), messageLang, <?php echo json_encode($ads[$language]) ?>);
 		});
+        const messageLang = <?php echo json_encode($message[$language]) ?>;
+        localStorage.setItem('messageLang', JSON.stringify(messageLang));
 	</script>
 	<link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore&v1' rel='stylesheet' type='text/css'>
 </head>
@@ -65,7 +155,7 @@
 
 	<form id="options" class="dialog">
 		<fieldset>
-			<!-- <div class="check" id="sound">sound</div> -->
+            <!--<div class="check" id="sound"><?php /*echo $messageLang['sound'] */?></div>-->
 			<div class="check" id="autoFlip">autoFlip</div>
 			<div class="check" id="autoPlay">autoPlay</div>
 			<ul id="themeList">
@@ -73,12 +163,8 @@
 					<a href="#" class="themeSelect"><img src="css/themes/fantasy/preview.png" alt="fantasy" /></a><br />
 					Fantasy
 				</li>
-				<!--
-				<li>
-					<a href="#" class="themeSelect"><img src="css/themes/jerico/preview.png" alt="jerico" /></a><br />
-					Jerico
-				</li>
-				-->
+
+
 			</ul>
 		<div class="ok"></div>
 		</fieldset>
@@ -91,8 +177,8 @@
 
 	<div id="youWon" class="dialog">
 		<div class="contents">
-			<strong>Score: </strong><span class="score">328</span>
-			<p><u>Enter your name</u></p>
+			<strong><?php echo $messageLang['score'] ?>: </strong><span class="score">328</span>
+			<p><u><?php echo $messageLang['enter_your_name'] ?></u></p>
 			<input type="text" name="userName" id="userName" width="20" />
 			<br />
 			<div class="check checked" id="tweetScore">Tweet score</div>
@@ -101,13 +187,13 @@
 	</div>
 
 	<div id="statusPanel">
-		<div class="score">0 Points</div><div class="time">00 : 00</div><div class="startAgain">Restart</div><div class="undo">Undo</div>
+		<div class="score">0 <?php echo $messageLang['points'] ?></div><div class="time">00 : 00</div><div class="startAgain"><?php echo $messageLang['restart'] ?></div><div class="undo"><?php echo $messageLang['undo'] ?></div>
 	</div>
 
 	<div id="optionsPanel">
 		<!-- <button class="icon home" id="gotoHome">Home</button> -->
-		<button class="icon options" id="menuToggle">Options</button>
-		<button class="icon scores" id="showScores">Scores</button>
+		<button class="icon options" id="menuToggle"><?php echo $messageLang['options'] ?></button>
+		<button class="icon scores" id="showScores"><?php echo $messageLang['score'] ?></button>
 		<div style="position:absolute;width:214px;height:21px;z-index:2;right:0;top:4px;">
 			<a href="http://twitter.com/share" class="twitter-share-button" data-text="I enjoyed playing SolitaireHD, nice #HTML5 game by @warpdesign_ :) → " data-count="horizontal">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 			<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.warpdesign.fr%2Fsolitairehd&amp;layout=button_count&amp;show_faces=true&amp;width=90&amp;action=like&amp;font=arial&amp;colorscheme=dark&amp;height=21" scrolling="no" frameborder="0" style="display:inline-block; border:none; overflow:hidden; width:90px; height:21px;"></iframe>
@@ -116,5 +202,6 @@
 
 	<div id="shadow"></div>
 	<div id="splash"><div class="content"></div></div>
+    <div id="ads" style="position: absolute; background-color: black;width: 100%;height: 100%;z-index: 1000;top: 0;left: 0; overflow: hidden">
 </body>
 </html>

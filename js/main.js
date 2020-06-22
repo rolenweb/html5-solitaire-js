@@ -124,7 +124,6 @@ var WarpKlondikeMain = (function(game)
 			Particles.init(CM.isiOS ? 8 : 32);
 
 			$('#splash .content').css('opacity', '1');
-			setTimeout(function() {  }, 2901);
 			setTimeout(hideSplash, 3000);
 
 			// TODO: add proper methods for that 

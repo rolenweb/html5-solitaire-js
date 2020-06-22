@@ -587,7 +587,7 @@ var game = {
 			setTimeout(function() { scoreEvolElt.addClass('shown'); }, 100);
 		}
 
-		this.scoreElt.html(this.score + ' points');
+		this.scoreElt.html(this.score + ' ' + JSON.parse(localStorage.getItem('messageLang')).points);
 	},
 
 	clickKing:function(deckNum, deckType)
